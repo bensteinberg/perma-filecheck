@@ -1,0 +1,20 @@
+version: '2'
+services:
+    web:
+        build: .
+        image: perma-filecheck:0.3
+        volumes:
+            - .:/app
+        command: ["/bin/bash"]
+        tty: true
+        environment:
+            # let Django load Docker-specific settings conditionally
+            - DOCKERIZED=True
+        extra_hosts:
+          - "filecheck.perma.test:127.0.0.1"
+        ports:
+            - 127.0.0.1:8000:8000
+        # allow profiling with py-spy
+        # https://github.com/benfred/py-spy#how-do-i-run-py-spy-in-docker
+        cap_add:
+            - SYS_PTRACE

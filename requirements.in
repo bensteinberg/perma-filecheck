@@ -1,0 +1,11 @@
+pip-tools
+
+fastapi
+uvicorn
+python-multipart        # allow fastapi to receive file uploads
+
+filetype                # file type checking
+
+# testing
+pytest
+requests
