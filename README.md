@@ -33,3 +33,4 @@ Tests will fail if test coverage goes below 100%.
 
 * Service has no auth, so limit to allowed IPs
 * run server as `uvicorn main:app`
+* server must be running `clamd` with regularly updated antivirus definitions
