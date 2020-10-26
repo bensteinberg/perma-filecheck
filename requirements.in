@@ -1,10 +1,14 @@
+# dev
 pip-tools
 
+# fastapi
 fastapi
 uvicorn
 python-multipart        # allow fastapi to receive file uploads
 
+# file handling
 filetype                # file type checking
+python-dateutil
 
 # testing
 pytest
