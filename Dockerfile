@@ -18,3 +18,5 @@ RUN pip install pip==20.2.4  \
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
+
+COPY main.py /app/main.py
