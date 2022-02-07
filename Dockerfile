@@ -4,6 +4,7 @@ ENV UVICORN_PORT 8000
 
 # install clamav
 # https://www.clamav.net/documents/installing-clamav#debian
+ARG clamav-cache-buster
 RUN apt-get update \
     && apt-get install -y clamav clamav-daemon
 
