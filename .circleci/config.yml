@@ -41,6 +41,6 @@ jobs:
           name: "Test"
           command: |
             docker-compose up -d
-            sleep 15
-            docker-compose exec -d web uvicorn main:app --reload --host 0.0.0.0
+            docker-compose exec -d web bash -c "service clamav-daemon start && service clamav-freshclam start && uvicorn main:app --reload --host 0.0.0.0"
+            sleep 10
             docker-compose exec web pytest
