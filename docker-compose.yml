@@ -2,8 +2,8 @@ version: '2'
 services:
     web:
         build:
-	  context: .
-	  args:
+          context: .
+          args:
             clamav-cache-buster: 44FFAF5C-F799-4F20-854D-54E521D503A7
         image: registry.lil.tools/harvardlil/perma-filecheck:0.9
         volumes:
