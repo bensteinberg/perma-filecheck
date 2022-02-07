@@ -1,0 +1,46 @@
+version: 2.1
+jobs:
+  build:
+    machine:
+      image: ubuntu-2004:202010-01
+    working_directory: ~/project
+    steps:
+
+      # Initial setup
+      - checkout:
+          path: ~/project
+      - run:
+          name: "Info"
+          command: |
+            docker-compose --version
+            docker version
+
+      # Docker image building and caching
+      # This block shaves a minute or two off of the test runtime by using cached docker images.
+      # Otherwise we could omit this step entirely and let `docker-compose run` build what it needs to.
+      - restore_cache:
+          key: docker-images-{{ checksum "docker-compose.yml" }}
+      - run:
+          name: "Build docker images"
+          command: |
+            if test -f ~/docker-cache.tar; then
+              echo "Loading cached docker images"
+              docker load -i ~/docker-cache.tar
+            else
+              echo "Building new docker images"
+              docker-compose build
+              docker save -o ~/docker-cache.tar perma-filecheck
+            fi
+      - save_cache:
+          key: docker-images-{{ checksum "docker-compose.yml" }}
+          paths:
+            - "~/docker-cache.tar"
+
+      # Actual tests
+      - run:
+          name: "Test"
+          command: |
+            docker-compose up -d
+            sleep 15
+            docker-compose exec -d web uvicorn main:app --reload --host 0.0.0.0
+            docker-compose exec web pytest
