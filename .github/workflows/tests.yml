@@ -1,0 +1,22 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    # don't run on pushes to forks
+    if: github.event_name == 'pull_request' || github.repository == 'harvard-lil/perma-filecheck'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      ### run tests ###
+
+      - name: pytest
+        shell: 'script -q -e -c "bash --noprofile --norc -eo pipefail {0}"'  # avoid docker-compose "the input device is not a TTY" -- see https://github.com/actions/runner/issues/241#issuecomment-842566950
+        run: |
+          docker compose up -d
+          docker compose exec -d web bash -c "service clamav-daemon start && service clamav-freshclam start && uvicorn main:app --reload --host 0.0.0.0"
+          sleep 20
+          docker compose exec web pytest

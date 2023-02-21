@@ -1,5 +1,7 @@
 Microservice to check files for expected file type, extension, and antivirus.
 
+[![Tests](https://github.com/harvard-lil/perma-filecheck/actions/workflows/tests.yml/badge.svg)](https://github.com/harvard-lil/perma-filecheck/actions)
+
 ## Local install
 
     $ docker-compose up
