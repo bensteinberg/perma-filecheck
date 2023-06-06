@@ -14,7 +14,7 @@ RUN freshclam
 RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt /app
-RUN pip install pip==20.2.4  \
+RUN pip install pip==23.1.2  \
     && pip install -r requirements.txt --src /usr/local/src \
     && rm requirements.txt
 
