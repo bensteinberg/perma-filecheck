@@ -26,8 +26,9 @@ Add a dependency; it's essential to update `requirements.txt`, as that's what's 
     poetry export -o requirements.txt
     docker compose up -d --build  # to reinstall requirements in the container
 
-Run tests:
+Run lints and tests:
 
+    docker compose exec web flake8
     docker compose exec web pytest
 
 Tests will fail if test coverage goes below 100%.
