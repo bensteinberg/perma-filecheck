@@ -1,4 +1,4 @@
-FROM registry.lil.tools/library/python:3.9-bullseye
+FROM registry.lil.tools/library/python:3.11-bookworm
 ENV PYTHONUNBUFFERED 1
 ENV UVICORN_PORT 8000
 
@@ -14,7 +14,7 @@ RUN freshclam
 RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt /app
-RUN pip install pip==23.1.2  \
+RUN pip install pip==24.0  \
     && pip install -r requirements.txt --src /usr/local/src \
     && rm requirements.txt
 
